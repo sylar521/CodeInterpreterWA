@@ -1,0 +1,56 @@
+﻿@page "/caesarcipher"
+
+<h3>CaesarCipher</h3>
+
+<div class="form-group">
+    <div class="col-md-4">
+        <div class="form-group">
+            <label>Before encryption</label>
+            <input type="text" class="form-control" placeholder="Type something..." @bind="Encrypt" />
+            <input type="text" class="form-control" placeholder="Shift value" @bind="shiftValue" />
+        </div>
+        <button class="btn btn-primary" @onclick="ConvertToCaesar">
+            <span class="oi oi-clock" aria-hidden="true"></span> Convert
+        </button>
+    </div>
+
+    @if (_encrypted != null)
+    {
+        <div class="row blockquote mt-5">
+            <span>Your encrypted text is: @_encrypted</span>
+        </div>
+    }
+
+</div>
+
+@code {
+
+    string _encrypted = null;
+
+    public string Encrypt { get; set; }
+    public int shiftValue { get; set; }
+
+    public static char cipher(char ch, int key)
+    {
+        if (char.IsLetter(ch))
+        {
+            char d = char.IsUpper(ch) ? 'A' : 'a';
+            return (char)((((ch + key) - d) % 26 ) + d);
+        }
+        else
+        {
+            return ch;
+        }
+    }
+
+    private void ConvertToCaesar()
+    {
+        _encrypted = null;
+        foreach (char c in Encrypt)
+        {
+            _encrypted += cipher(c, shiftValue);
+        }
+    }
+
+}
+

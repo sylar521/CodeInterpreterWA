@@ -1,0 +1,41 @@
+﻿<div class="form-group">
+<div class="col-md-4">
+    <div class="form-group">
+        <label>USD to PLN Converter</label>
+        <input type="number" class="form-control" placeholder="USD ...." @bind="Dollars" />
+        <input type="number" class="form-control" placeholder="Your exchange rate ...." @bind="exchangeRate" />
+    </div>
+    <button class="btn btn-primary" @onclick="ConvertUSDToPLN">
+        <span class="oi oi-clock" aria-hidden="true"></span> Convert
+    </button>
+</div>
+
+@if (_pln != null)
+{
+    <div class="row blockquote mt-5">
+        <span>@Dollars USD is @_pln PLN   !</span>
+    </div>
+}
+
+</div>
+
+@code {
+    double? _pln = null;
+
+    public double? Dollars { get; set; }
+    public double? exchangeRate { get; set; }
+
+    private void ConvertUSDToPLN()
+    {
+        if (exchangeRate != null)
+        {
+            _pln = Dollars * exchangeRate;
+        }
+        else
+        {
+            _pln = Dollars * 3.96;
+        }
+    }
+
+
+}

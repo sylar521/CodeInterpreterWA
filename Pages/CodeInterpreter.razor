@@ -1,0 +1,18 @@
+﻿@page "/interpreter"
+<h1>Interpreter</h1>
+
+<div class="row" style="height: 600px">
+    <div class="col-6 h-100">
+        <textarea @bind="_markdownCode" @bind:event="oninput" class="form-control h-100"></textarea>
+    </div>
+    <div class="col-6 h-100">
+        @((MarkupString)@Markdig.Markdown.ToHtml(_markdownCode))
+    </div>
+</div>
+
+<h3>CodeInterpreter</h3>
+
+@code {
+    string _markdownCode = string.Empty;
+
+}
